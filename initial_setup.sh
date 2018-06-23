@@ -17,5 +17,8 @@ sudo useradd --uid "$FUID" --gid "$FGID" --system factorio || true
 sudo mkdir --parents /opt/factorio /factorio
 sudo chown --recursive factorio:factorio /opt/factorio /factorio
 
+trap EXIT rm -f /tmp/factorio_setup.sh
+cp "$SCRIPT_LOC"/factorio_setup.sh /tmp/factorio_setup.sh
+
 # Switch to factorio
-sudo su - factorio "$SCRIPT_LOC"/factorio_setup.sh
+# sudo su - factorio "$SCRIPT_LOC"/factorio_setup.sh
