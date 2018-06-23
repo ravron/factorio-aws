@@ -12,13 +12,21 @@ fi
 readonly TMP_LOC="/tmp/factorio.tar.xz"
 
 # Pull down and unpack the latest stable server
-curl --location https://www.factorio.com/get-download/stable/headless/linux64 \
-    --output "$TMP_LOC"
+# trap "rm -f $TMP_LOC" EXIT
+# curl --location https://www.factorio.com/get-download/stable/headless/linux64 \
+#     --output "$TMP_LOC"
 # Expand into /opt/factorio
 tar --extract --file "$TMP_LOC" --directory /opt
 
-# Link data files into the data location
-ln -s /factorio/saves /opt/factorio/saves
-ln -s /factorio/mods /opt/factorio/mods
-ln -s /factorio/scenarios /opt/factorio/scenarios
-ln -s /factorio/script-output /opt/factorio/script-output
+
+# Make data directories if not already there
+mkdir --parents /factorio/saves
+mkdir --parents /factorio/mods
+mkdir --parents /factorio/scenarios
+mkdir --parents /factorio/script-output
+
+# Link data directories into the data location
+ln --force --symbolic --no-dereference /factorio/saves /opt/factorio/saves
+ln --force --symbolic --no-dereference /factorio/mods /opt/factorio/mods
+ln --force --symbolic --no-dereference /factorio/scenarios /opt/factorio/scenarios
+ln --force --symbolic --no-dereference /factorio/script-output /opt/factorio/script-output

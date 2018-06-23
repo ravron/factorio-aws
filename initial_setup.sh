@@ -21,4 +21,4 @@ trap "rm -f /tmp/factorio_setup.sh" EXIT
 cp "$SCRIPT_LOC"/factorio_setup.sh /tmp/factorio_setup.sh
 
 # Switch to factorio
-sudo su - factorio tmp/factorio_setup.sh
+sudo su - factorio /tmp/factorio_setup.sh
