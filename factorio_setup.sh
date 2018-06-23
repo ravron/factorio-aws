@@ -4,6 +4,10 @@ set -eux
 set -o pipefail
 
 # This script should be run as user factorio
+if [[ "$USER" != "factorio" ]]; then
+    echo "run this script as user factorio" >2
+    exit 1
+fi
 
 readonly TMP_LOC="/tmp/factorio.tar.xz"
 
