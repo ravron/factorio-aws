@@ -9,6 +9,11 @@ readonly SCRIPT_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly FGID=845
 readonly FUID=845
 
+sudo yum update -y
+sudo yum install -y \
+    git \
+    golang
+
 # Create group and user if not already present
 sudo groupadd --gid "$FGID" --system factorio || true
 sudo useradd --uid "$FUID" --gid "$FGID" --system factorio || true
