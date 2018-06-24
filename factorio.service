@@ -1,0 +1,9 @@
+[Unit]
+Description=Factorio headless server
+
+[Service]
+User=factorio
+ExecStart=/factorio/run.sh
+
+[Install]
+WantedBy=multi-user.target
