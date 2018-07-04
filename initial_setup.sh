@@ -14,6 +14,9 @@ sudo yum install -y \
     git \
     golang
 
+# Build the player count checker
+go build -o player-checker main.go
+
 # Create group and user if not already present
 sudo groupadd --gid "$FGID" --system factorio || true
 sudo useradd --uid "$FUID" --gid "$FGID" --system factorio || true
@@ -21,8 +24,10 @@ sudo useradd --uid "$FUID" --gid "$FGID" --system factorio || true
 # Create install and data locations
 sudo mkdir --parents /opt/factorio /factorio
 
-# Copy the server run script to where the factorio user can run it
+# Copy the server run script and player count checker to where the factorio user
+# can run it
 sudo cp "$SCRIPT_LOC"/run.sh /factorio
+sudo cp "$SCRIPT_LOC"/player-checker /factorio
 
 # Chown install and data locations
 sudo chown --recursive factorio:factorio /opt/factorio /factorio
