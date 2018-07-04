@@ -15,7 +15,7 @@ sudo yum install -y \
     golang
 
 # Build the player count checker
-go build -o player-checker main.go
+go build -o "$SCRIPT_LOC"/player-checker "$SCRIPT_LOC"/main.go
 
 # Create group and user if not already present
 sudo groupadd --gid "$FGID" --system factorio || true
