@@ -20,10 +20,14 @@ sudo useradd --uid "$FUID" --gid "$FGID" --system factorio || true
 
 # Create install and data locations
 sudo mkdir --parents /opt/factorio /factorio
-sudo chown --recursive factorio:factorio /opt/factorio /factorio
 
+# Copy the server run script to where the factorio user can run it
 sudo cp "$SCRIPT_LOC"/run.sh /factorio
 
+# Chown install and data locations
+sudo chown --recursive factorio:factorio /opt/factorio /factorio
+
+# Copy the second half of the setup script, run by user factorio, to tmp
 trap "rm -f /tmp/factorio_setup.sh" EXIT
 cp "$SCRIPT_LOC"/factorio_setup.sh /tmp/factorio_setup.sh
 

@@ -18,7 +18,6 @@ readonly TMP_LOC="/tmp/factorio.tar.xz"
 # Expand into /opt/factorio
 tar --extract --file "$TMP_LOC" --directory /opt
 
-
 # Make data directories if not already there
 mkdir --parents /factorio/saves
 mkdir --parents /factorio/mods
