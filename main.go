@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-    "os"
-    "os/exec"
-    "time"
+	"os"
+	"os/exec"
+	"time"
 
 	"github.com/gtaylor/factorio-rcon"
 )
@@ -74,12 +74,13 @@ func main() {
 
 	fmt.Printf("%d players online\n", online)
 
-    // If there are any players, delete file and exit.
-    if online > 0 {
-        // Ignore errors
-        os.Remove(filename)
-        return
-    }
+	// If there are any players, delete file and exit.
+	if online > 0 {
+		// Ignore errors
+		fmt.Println("removing check file")
+		os.Remove(filename)
+		return
+	}
 
 	last := lastZeroDate()
 	thirtyFiveMinAgo := time.Now().UTC().Add(-35 * time.Minute)
@@ -87,12 +88,16 @@ func main() {
 	if last.Before(thirtyFiveMinAgo) {
 		// Last check was longer than thirty five minutes ago. Write now to
 		// file and exit.
+		fmt.Printf("last check at %s, too old\n", last.String())
+		fmt.Println("updating file and exiting")
 		writeNow()
 		return
 	}
 
 	// Last check was less than thirty five minutes ago. Shutdown in one
 	// minute!
+	fmt.Printf("last check at %s, still zero\n", last.String())
+	fmt.Println("shutting down in 1 minute (sudo shutdown -c to cancel)")
 	c := exec.Command("shutdown", "-H", "+1")
 	c.Run()
 }
