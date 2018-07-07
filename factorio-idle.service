@@ -1,0 +1,8 @@
+[Unit]
+Description=Factorio zero player server shutdown
+
+[Service]
+ExecStart=/factorio/player-checker
+
+[Install]
+WantedBy=multi-user.target
