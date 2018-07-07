@@ -99,5 +99,11 @@ func main() {
 	fmt.Printf("last check at %s, still zero\n", last.String())
 	fmt.Println("shutting down in 1 minute (sudo shutdown -c to cancel)")
 	c := exec.Command("shutdown", "-H", "+1")
-	c.Run()
+	err = c.Run()
+	if err != nil {
+		fmt.Printf("shutdown failed: %v\n", err)
+	}
+	if err, ok := err.(*exec.ExitError); ok && !err.Success() {
+		fmt.Println("may not have been run as root")
+	}
 }
