@@ -2,8 +2,8 @@
 Description=Factorio zero player server shutdown timer
 
 [Timer]
-OnActiveSec=30m
-OnUnitActiveSec=30m
+OnActiveSec=10s
+OnUnitActiveSec=5m
 
 [Install]
 WantedBy=timers.target
