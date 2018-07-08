@@ -83,20 +83,25 @@ func main() {
 	}
 
 	last := lastZeroDate()
-	thirtyFiveMinAgo := time.Now().UTC().Add(-35 * time.Minute)
-
-	if last.Before(thirtyFiveMinAgo) {
-		// Last check was longer than thirty five minutes ago. Write now to
-		// file and exit.
-		fmt.Printf("last check at %s, too old\n", last.String())
-		fmt.Println("updating file and exiting")
+	if last.IsZero() {
+		fmt.Println("no previous file, writing")
 		writeNow()
 		return
 	}
 
-	// Last check was less than thirty five minutes ago. Shutdown in one
-	// minute!
-	fmt.Printf("last check at %s, still zero\n", last.String())
+	thirtyMinAgo := time.Now().UTC().Add(-30 * time.Minute)
+
+	if last.After(thirtyMinAgo) {
+		// Last zero was earlier than thirty minutes ago.
+		fmt.Printf("last check at %s, thirty minutes haven't elapsed\n", last.String())
+		return
+	}
+
+	// First zero was more than thirty minutes ago. Shutdown in one minute!
+	fmt.Println("removing check file")
+	os.Remove(filename)
+
+	fmt.Printf("first zero at %s, still zero\n", last.String())
 	fmt.Println("shutting down in 1 minute (sudo shutdown -c to cancel)")
 	c := exec.Command("shutdown", "-H", "+1")
 	err = c.Run()
