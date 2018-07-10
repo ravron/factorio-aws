@@ -12,9 +12,12 @@ fi
 readonly TMP_LOC="/tmp/factorio.tar.xz"
 
 # Pull down and unpack the latest stable server
-# trap "rm -f $TMP_LOC" EXIT
- curl --location https://www.factorio.com/get-download/stable/headless/linux64 \
-     --output "$TMP_LOC"
+#trap "rm -f $TMP_LOC" EXIT
+if [[ -e "$TMP_LOC" ]] ; then
+    curl --location "https://www.factorio.com/get-download/stable/headless/linux64" \
+        --output "$TMP_LOC"
+fi
+
 # Expand into /opt/factorio
 tar --extract --file "$TMP_LOC" --directory /opt
 
