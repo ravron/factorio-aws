@@ -37,8 +37,8 @@ sudo cp "$SCRIPT_LOC"/factorio.service /etc/systemd/system
 sudo systemctl enable factorio.service
 
 # Copy server idle timer and service to systemd location and enable timer
-#sudo cp "$SCRIPT_LOC"/factorio-idle.{timer,service} /etc/systemd/system
-#sudo systemctl enable factorio-idle.timer
+sudo cp "$SCRIPT_LOC"/factorio-idle.{timer,service} /etc/systemd/system
+sudo systemctl enable factorio-idle.timer
 
 # Copy the second half of the setup script, run by user factorio, to tmp
 trap "rm -f /tmp/factorio_setup.sh" EXIT
