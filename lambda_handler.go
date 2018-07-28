@@ -63,7 +63,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 			<html>
 				<body>
 					<p>The server isn't running yet. Would you like to start it?</p>
-					<form action="">
+					<form action="" method="post">
 						<input type="submit" value="Start instance"/>
 					</form>
 				</body>
@@ -71,6 +71,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		`
 		return events.APIGatewayProxyResponse{
 			Body:       body,
+			Headers:    map[string]string{"content-type": "text/html"},
 			StatusCode: 200,
 		}, nil
 	}
