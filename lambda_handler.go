@@ -57,6 +57,32 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		}, nil
 	}
 
+	// Instance not running, either print out the form to start it (for a GET) or actually start it (for a POST).
+	if request.HTTPMethod == "GET" {
+		body := `
+			<html>
+				<body>
+					<p>The server isn't running yet. Would you like to start it?</p>
+					<form action="">
+						<input type="submit" value="Start instance"/>
+					</form>
+				</body>
+			</html>
+		`
+		return events.APIGatewayProxyResponse{
+			Body:       body,
+			StatusCode: 200,
+		}, nil
+	}
+
+	// We should only get GET or POST requests
+	if request.HTTPMethod != "POST" {
+		return events.APIGatewayProxyResponse{
+			Body:       fmt.Sprint("Unrecognized HTTP method: %s", request.HTTPMethod),
+			StatusCode: 200,
+		}, nil
+	}
+
 	fmt.Printf("starting instance %s\n", instId)
 	_, err = client.StartInstances(&ec2.StartInstancesInput{
 		InstanceIds: []*string{
