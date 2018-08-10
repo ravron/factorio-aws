@@ -61,6 +61,10 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	if request.HTTPMethod == "GET" {
 		body := `
 			<html>
+				<head>
+					<title>Factorio Server Starter</title>
+					<link rel="icon" type="image/x-icon" href="https://www.factorio.com/static/img/favicon.ico"/>
+				</head>
 				<body>
 					<p>The server isn't running yet. Would you like to start it?</p>
 					<form action="" method="post">
